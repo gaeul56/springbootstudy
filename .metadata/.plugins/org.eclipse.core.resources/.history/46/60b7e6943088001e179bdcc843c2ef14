@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<jsp:include page="../layout/header.jsp">
+  <jsp:param value="블로그" name="title"/>
+</jsp:include>
+<head th:replace="~{/layout/header::head('블로그')}"></head>
+
+<body>
+  
+</body>
+<div>
+  
+  <div th:replace="~{/layout/header::header}"></div>
+  <div class="main_wrap">
+    <div class="wrap wrap_8">
+  <div>
+    <a th:href="@{/blog/write.form}">
+      <button type="button" class="btn btn-primary">새글작성</button>
+    </a>
+  </div>
+  
+  <hr>
+  
+  <div>
+    <table border="1">
+      <thead>
+        <tr>
+          <td>순번</td>
+          <td>제목</td>
+          <td>조회수</td>
+          <td>작성자</td>
+          <td>작성일자</td>
+        </tr>
+      </thead>
+      <tbody>
+        <th:block th:each="b,vs:${blogList}">
+          <tr class="list">
+            <td th:text="${beginNo - vs.index}"></td>
+            <td>
+              <!-- 내가 작성한 블로그의 조회수는 증가하지 않는다. -->
+              <th:block th:if="${session.user != null}">
+                <th:block th:if="${session.user.userNo == b.userDto.userNo}">
+                  <a th:href="@{/blog/detail.do?blogNo=${b.blogNo}" th:text="${b.title}"></a>
+                </th:block>
+              </th:block>
+              <th:block th:if="${session.user != null}">
+                <th:block th:if="${session.user.userNo != b.userDto.userNo}">
+                  <a th:href="@{/blog/increseHit.do?blogNo=${b.blogNo}" th:text="${b.title}"></a>
+                </th:block>
+              </th:block>
+            </td>
+            <td th:text="${#numbers.formatInteger(b.hit, 3, 'COMMA')}"></td>
+            <td th:text="${b.userDto.email}"></td>
+            <td th:text="${b.createdAt}"></td>
+          </tr>
+        </th:block>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5" th:utext="${paging}"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+</div>
+
+<script th:inline="javascript">
+
+  const fnAddResult = () => {
+    let addResult = /*[[${addResult}]]*/ null;
+    if(addResult !== null){
+      if(addResult === 1){
+        alert('블로그가 작성되었습니다.');
+      } else {
+        alert('블로그 작성이 실패했습니다.');
+      }
+    }
+  }
+  
+  const fnRemoveResult = () => {
+    let removeResult = /*[[${removeResult}]]*/ null;  // '', '1', '0'
+    if(removeResult !== null){
+      if(removeResult === 1){
+        alert('블로그가 삭제되었습니다.');
+        $('#upload_list').empty();
+      } else {
+        alert('블로그 삭제가 실패했습니다.');
+      }
+    }
+  }
+
+  fnAddResult();
+  fnRemoveResult();
+  
+
+
+</script>
+     </div>
+    </div>
+    <div th:replace="!{/layout/footer::footer}"></div>
+  </body>
+</html>

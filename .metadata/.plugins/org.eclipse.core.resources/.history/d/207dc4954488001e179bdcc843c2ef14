@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<jsp:include page="../layout/header.jsp">
+  <jsp:param value="비밀번호변경" name="title"/>
+</jsp:include>
+
+<script th:src="@{/resources/js/user_modify_pw.js(ver=1.0)}"></script>
+
+<div>
+
+  <form id="frm_modify_pw" method="post" th:action="@{/user/modifyPw.do}">
+    
+    <h1>비밀번호 변경하기</h1>
+      
+    <div>
+      <label for="pw">비밀번호</label>
+      <input type="password" name="pw" id="pw">
+      <span id="msg_pw"></span>
+    </div>
+    
+    <div>
+      <label for="pw2">비밀번호 확인</label>
+      <input type="password" id="pw2">
+      <span id="msg_pw2"></span>
+    </div>
+    
+    <div>
+      <input type="hidden" name="userNo" th:value="${session.user.userNo}">
+      <button type="submit">비밀번호변경하기</button>
+    </div>
+    
+  </form>
+
+</div>
+
+<%@ include file="../layout/footer.jsp" %>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
+<jsp:include page="../layout/header.jsp">
+  <jsp:param value="게시글작성" name="title"/>
+</jsp:include>
+<head th:replace="~{/layout/header::head('게시글작성')}"></head>
+<body>
+  <div th:replace="~{/layout/header::header}"></div>
+<div class="main_wrap">
+  
+  <div class="wrap wrap_6">
+    <form id="frm_free_add" method="post" action="@{/free/add.do}">
+      
+      <h1>자유게시글을 작성하세요</h1>
+      
+      <div>
+        <label for="email">작성자</label>
+        <input type="text" name="email" id="email" value="${sessionScope.user.email}" readonly>
+      </div>
+      
+      <div>
+        <label for="contents">내용</label>
+        <textarea name="contents" id="contents"></textarea>
+      </div>
+      
+      <div>
+        <button type="submit">작성완료</button>
+      </div>
+      
+    </form>
+  </div>
+<script>
+  
+</script>
+</div>
+<div th:replace="~{/layout/footer::footer}"></div>
+</body>
+</html>

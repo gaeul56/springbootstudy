@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<jsp:include page="header.jsp">
+  <jsp:param value="마이홈" name="title"/>
+</jsp:include>
+<body>
+
+  <h1 style="text-align: center;">어서오세요</h1>
+
+
+    <div th:replace="!{/layout/footer::footer}"></div>
+</body>
+</html>
