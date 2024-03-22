@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service //@Component를 포함하고있음
 public class MemberService {
 
     private final MemberRepository memberRepository;
